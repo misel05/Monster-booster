@@ -1,0 +1,28 @@
+name: Turbo Traffic Booster
+
+on:
+  schedule:
+    - cron: '*/15 * * * *' # Jalan otomatis tiap 15 menit
+  workflow_dispatch:
+
+jobs:
+  gas-pol:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run actions/checkout@v3
+        uses: actions/checkout@v3
+
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Playwright (Mesin Bot)
+        run: |
+          pip install playwright
+          playwright install firefox
+          playwright install-deps firefox
+
+      - name: Eksekusi Bot Cuan
+        run: python ads.py
+        
